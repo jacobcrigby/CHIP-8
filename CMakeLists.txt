@@ -1,0 +1,12 @@
+cmake_minimum_required(VERSION 3.20)
+project(CHIP-8)
+set(CMAKE_C_STANDARD 23)
+set(CMAKE_CXX_STANDARD 23)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/$<CONFIGURATION>")
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/$<CONFIGURATION>")
+add_subdirectory(vendored/SDL EXCLUDE_FROM_ALL)
+
+add_executable(CHIP-8 WIN32 main.c)
+
+target_link_libraries(CHIP-8 PRIVATE SDL3::SDL3)

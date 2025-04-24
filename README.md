@@ -1,2 +1,3 @@
 # CHIP-8
-Basic CHIP-8 emulator as a learning tool
+
+Basic CHIP-8 emulator used as a personal learning tool.

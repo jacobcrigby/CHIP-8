@@ -7,6 +7,7 @@
 
 static SDL_Window *window = NULL;
 static SDL_Renderer *renderer = NULL;
+static SDL_Texture *texture = NULL;
 
 SDL_AppResult SDL_AppInit(void **appstate, int argc, char **argv)
 {
@@ -22,11 +23,25 @@ SDL_AppResult SDL_AppInit(void **appstate, int argc, char **argv)
         return SDL_APP_FAILURE;
     }
 
+    texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGB332, SDL_TEXTUREACCESS_TARGET, 64, 32);
+    if (!texture) {
+        SDL_Log("Couldn't create texture: %s", SDL_GetError());
+        return SDL_APP_FAILURE;
+    }
+    SDL_SetTextureScaleMode(texture, SDL_SCALEMODE_LINEAR);
+
     return SDL_APP_CONTINUE;
 }
 
 SDL_AppResult SDL_AppIterate(void *appstate)
 {
+    bool success = SDL_RenderClear(renderer);
+    success = SDL_RenderTexture(renderer, texture, NULL, NULL);
+    if (!success) {
+        SDL_Log("Couldn't render texture: %s", SDL_GetError());
+        return SDL_APP_FAILURE;
+    }
+    success = SDL_RenderPresent(renderer);
     return SDL_APP_CONTINUE;
 }
 

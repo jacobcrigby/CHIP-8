@@ -51,11 +51,11 @@ public:
     }
 
     // Load a ROM file into memory
-    void load(const char *filename);
+    bool load(const char *filename);
 
     // Load a ROM file into memory with a specific mode
     // Default mode is standard CHIP-8
-    void load(const char *filename, EMU_MODE mode);
+    bool load(const char *filename, EMU_MODE mode);
 
     // Run one cycle of the Chip-8 interpreter
     void cycle();
